@@ -9,7 +9,6 @@
 #include <avr/pgmspace.h>
 #include "usart.h"
 #include "ee24c16.h"
-
 //set stream pointer
 FILE usart0_str = FDEV_SETUP_STREAM(USART0SendByte, USART0ReceiveByte, _FDEV_SETUP_RW);
 int main(void)
@@ -39,9 +38,22 @@ if (EEWriteByte(u16eaddress, 0x58) != ERROR)
 	else printf_P(PSTR("\nStatus fail!"));
 
 }	
-else printf_P(PSTR("\nStatus fail!"));
-	
+
 printf_P(PSTR("\nWriting 16 bytes to page 5 "));
+/*
+for (i=0; i < 8; i++) {
+	if (EEWriteByte(u16eaddress, eewritepage[i]) != ERROR)
+	{
+		printf_P(PSTR("\nRead byte From eeprom"));
+		if (EEReadByte(u16eaddress, &eereadpage[i]) != ERROR)
+		{
+			printf("\n*%#04x = %#04x", eewritepage[i], eereadpage[i]);
+		}
+		else printf_P(PSTR("\nStatus fail!"));
+
+	}
+}
+*/
 if(EEWritePage(page, eewritepage) != ERROR)
 {
 	printf_P(PSTR("\nReading 16 bytes from page 5 "));
@@ -52,6 +64,7 @@ if(EEWritePage(page, eewritepage) != ERROR)
 		{
 			if (eereadpage[i] != eewritepage[i])
 			{
+				printf("\n*%#04x = %#04x", eereadpage[i], eewritepage[i]);
 				break;
 			}		
 				else continue;
@@ -63,7 +76,7 @@ if(EEWritePage(page, eewritepage) != ERROR)
 	} else printf_P(PSTR("\nStatus fail!"));
 
 }else printf_P(PSTR("\nStatus fail!"));
-
+/*
 printf_P(PSTR("\nContinue testing EEPROM from terminal!"));
     while(1)
     {
@@ -84,5 +97,5 @@ printf_P(PSTR("\nContinue testing EEPROM from terminal!"));
 			else printf_P(PSTR("\nStatus fail!"));
 
         //TODO:: Please write your application code 
-    }
+    }*/
 }

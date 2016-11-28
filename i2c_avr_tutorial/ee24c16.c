@@ -26,6 +26,7 @@ uint8_t EEWriteByte(uint16_t u16addr, uint8_t u8data)
 	TWIStop();
 	return SUCCESS;
 }
+
 //write byte to 24C16
 uint8_t EEWritePage(uint8_t page, uint8_t *u8data)
 {
@@ -45,7 +46,7 @@ uint8_t EEWritePage(uint8_t page, uint8_t *u8data)
 	if (TWIGetStatus() != 0x28)
 		return ERROR;
 	//write page to eeprom
-	for (i=0; i<16; i++)
+	for (i=0; i<8; i++)
 	{
 		TWIWrite(*u8data++);
 			if (TWIGetStatus() != 0x28)
@@ -107,7 +108,7 @@ uint8_t EEReadPage(uint8_t page, uint8_t *u8data)
 	TWIWrite(((EEDEVADR)|(u8paddr>>3))|1);
 	if (TWIGetStatus() != 0x40)
 		return ERROR;
-	for (i=0; i<15; i++)
+	for (i=0; i<7; i++)
 	{
 		*u8data++ = TWIReadACK();
 			if (TWIGetStatus() != 0x50)

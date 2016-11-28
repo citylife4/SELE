@@ -5,7 +5,6 @@
  *  Author: embedds.com
  */ 
 #include "usart.h"
-
 void USART0Init(void)
 {
 // Set baud rate
@@ -16,7 +15,6 @@ UCSR0C |= (1<<UCSZ01)|(1<<UCSZ00);
 //enable transmission and reception
 UCSR0B |= (1<<RXEN0)|(1<<TXEN0);
 }
-
 int USART0SendByte(char u8Data, FILE *stream)
 {
    if(u8Data == '\n')
@@ -29,7 +27,6 @@ while(!(UCSR0A&(1<<UDRE0))){};
 UDR0 = u8Data;
 return 0;
 }
-
 int USART0ReceiveByte(FILE *stream)
 {
 uint8_t u8Data;
