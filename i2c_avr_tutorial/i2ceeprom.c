@@ -18,17 +18,16 @@ int main(void)
 	uint16_t u16eaddress = 0x07F0;
 	uint8_t page = 5;
 	uint8_t i;
-	uint8_t eereadpage[16];
-	uint8_t eewritepage[16] = { 10, 44, 255, 46, 80, 87, 43, 130,
-								210, 23, 1, 58, 46, 150, 12, 46 };
+	uint8_t eereadpage[8];
+	uint8_t eewritepage[8] = { 'a', 'b', 'c', 'd', 'e', 'f', 'h', 'i'};
 //Initialize USART0
 USART0Init();
 //
 TWIInit();
 //assign our stream to standard I/O streams
 stdin=stdout=&usart0_str;
-printf("\nWrite byte %#04x to eeprom address %#04x", 0x58, u16eaddress);
-if (EEWriteByte(u16eaddress, 0x58) != ERROR)
+printf("\nWrite byte %#04x to eeprom address %#04x", 'a', u16eaddress);
+if (EEWriteByte(u16eaddress, 'a') != ERROR)
 {
 	printf_P(PSTR("\nRead byte From eeprom"));
 	if (EEReadByte(u16eaddress, &u8ebyte) != ERROR)
@@ -38,38 +37,25 @@ if (EEWriteByte(u16eaddress, 0x58) != ERROR)
 	else printf_P(PSTR("\nStatus fail!"));
 
 }	
-
-printf_P(PSTR("\nWriting 16 bytes to page 5 "));
-/*
-for (i=0; i < 8; i++) {
-	if (EEWriteByte(u16eaddress, eewritepage[i]) != ERROR)
-	{
-		printf_P(PSTR("\nRead byte From eeprom"));
-		if (EEReadByte(u16eaddress, &eereadpage[i]) != ERROR)
-		{
-			printf("\n*%#04x = %#04x", eewritepage[i], eereadpage[i]);
-		}
-		else printf_P(PSTR("\nStatus fail!"));
-
-	}
-}
-*/
 if(EEWritePage(page, eewritepage) != ERROR)
 {
 	printf_P(PSTR("\nReading 16 bytes from page 5 "));
 	if (EEReadPage(page, eereadpage) != ERROR)
 	{
 		//compare send and read buffers
-		for (i=0; i<16; i++)
+		for (i=0; i<8; i++)
 		{
 			if (eereadpage[i] != eewritepage[i])
 			{
-				printf("\n*%#04x = %#04x", eereadpage[i], eewritepage[i]);
+				printf("\n%#04x != %#04x", eereadpage[i], eewritepage[i]);
 				break;
 			}		
-				else continue;
+				else {
+					printf("\n%#04x == %#04x", eereadpage[i], eewritepage[i]);
+					continue;
+				}
 		}
-		if (i==16)
+		if (i==8)
 			printf_P(PSTR("\nPage write and read success!"));
 		else
 			printf_P(PSTR("\nPage write and read fail!"));
