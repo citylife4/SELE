@@ -61,7 +61,7 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
-LOAD ./ee24c16.o
+LOAD ./24lc02b.o
 LOAD ./i2ceeprom.o
 LOAD ./twi.o
 LOAD ./usart.o
@@ -244,7 +244,7 @@ LOAD d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x000001d2                __vector_16
                 0x000001d2                __vector_18
                 0x000001d2                __vector_20
- .text          0x000001d6        0x0 ./ee24c16.o
+ .text          0x000001d6        0x0 ./24lc02b.o
  .text          0x000001d6        0x0 ./i2ceeprom.o
  .text          0x000001d6        0x0 ./twi.o
  .text          0x000001d6        0x0 ./usart.o
@@ -271,16 +271,16 @@ LOAD d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x000001d6                . = ALIGN (0x2)
  *(.text.*)
  .text.EEWriteByte
-                0x000001d6       0x88 ./ee24c16.o
+                0x000001d6       0x88 ./24lc02b.o
                 0x000001d6                EEWriteByte
  .text.EEWritePage
-                0x0000025e       0xb4 ./ee24c16.o
+                0x0000025e       0xb4 ./24lc02b.o
                 0x0000025e                EEWritePage
  .text.EEReadByte
-                0x00000312       0xca ./ee24c16.o
+                0x00000312       0xca ./24lc02b.o
                 0x00000312                EEReadByte
  .text.EEReadPage
-                0x000003dc       0xf8 ./ee24c16.o
+                0x000003dc       0xf8 ./24lc02b.o
                 0x000003dc                EEReadPage
  .text.main     0x000004d4      0x3b6 ./i2ceeprom.o
                 0x000004d4                main
@@ -393,7 +393,7 @@ LOAD d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
- .data          0x00800100        0x0 ./ee24c16.o
+ .data          0x00800100        0x0 ./24lc02b.o
  .data          0x00800100       0x97 ./i2ceeprom.o
  .data          0x00800197        0x0 ./twi.o
  .data          0x00800197        0x0 ./usart.o
@@ -435,7 +435,7 @@ LOAD d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x008001b6                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x008001b6        0x0 d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
- .bss           0x008001b6        0x0 ./ee24c16.o
+ .bss           0x008001b6        0x0 ./24lc02b.o
  .bss           0x008001b6        0x0 ./i2ceeprom.o
  .bss           0x008001b6        0x0 ./twi.o
  .bss           0x008001b6        0x0 ./usart.o
@@ -492,7 +492,7 @@ LOAD d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 
 .stab           0x00000000     0x14e8
  *(.stab)
- .stab          0x00000000      0x7ec ./ee24c16.o
+ .stab          0x00000000      0x7ec ./24lc02b.o
  .stab          0x000007ec      0x744 ./i2ceeprom.o
                                 0x8f4 (size before relaxing)
  .stab          0x00000f30      0x324 ./twi.o
@@ -502,7 +502,7 @@ LOAD d:/programas/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 
 .stabstr        0x00000000      0xe4e
  *(.stabstr)
- .stabstr       0x00000000      0xe4e ./ee24c16.o
+ .stabstr       0x00000000      0xe4e ./24lc02b.o
 
 .stab.excl
  *(.stab.excl)

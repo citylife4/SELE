@@ -36,11 +36,11 @@ SELE.lss \
 FLASH_IMAGE += \
 SELE.hex \
 
+EEPROM_IMAGE += \
+SELE.eep \
+
 SIZEDUMMY += \
 sizedummy \
-
-AVRDUDEDUMMY += \
-avrdudedummy \
 
 
 # All Target
@@ -66,24 +66,24 @@ SELE.hex: SELE.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
+SELE.eep: SELE.elf
+	@echo 'Create eeprom image (ihex format)'
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex SELE.elf  "SELE.eep"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 sizedummy: SELE.elf
 	@echo 'Invoking: Print Size'
 	-avr-size --format=avr --mcu=atmega328p SELE.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
-avrdudedummy: SELE.elf
-	@echo 'Invoking: AVRDude'
-	/usr/bin/avrdude -pm328p -Uflash:w:SELE.hex:a
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(AVRDUDEDUMMY)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) SELE.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) SELE.elf
 	-@echo ' '
 
-secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY) $(AVRDUDEDUMMY)
+secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
 
 .PHONY: all clean dependents
 .SECONDARY:
